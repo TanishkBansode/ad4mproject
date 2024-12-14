@@ -1,5 +1,5 @@
 import Ad4mConnectUI from "@coasys/ad4m-connect";
-import { LinkQuery } from "@coasys/ad4m";
+import { LinkQuery, Perspective } from "@coasys/ad4m";
 const ui = Ad4mConnectUI({
   appName: "Ad4mproject",
   appDesc: "Trying AD4M",
@@ -71,3 +71,26 @@ const allLinks = await perspective1.get(
 );
 
 console.log("AllLinks: ", allLinks)
+
+// Neighbourhood
+
+const langs = await client.runtime.knownLinkLanguageTemplates();
+console.log(langs[0]); // The uuid of the default Link Language
+
+const uniqueLinkLanguage = await client.languages.applyTemplateAndPublish(
+  langs[0],
+  JSON.stringify({
+    uuid: "84a329-77384c-1510fb",
+    name: "Perspective Diff Sync clone",
+  })
+);
+
+const meta = new Perspective();
+ 
+const neighbourhoodUrl = await client.neighbourhood.publishFromPerspective(
+  perspective1.uuid,
+  uniqueLinkLanguage.address,
+  meta
+);
+ 
+console.log(neighbourhoodUrl); // => neighbourhood://Qm123456789abcdef
