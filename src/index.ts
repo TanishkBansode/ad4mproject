@@ -93,4 +93,4 @@ const neighbourhoodUrl = await client.neighbourhood.publishFromPerspective(
   meta
 );
  
-console.log(neighbourhoodUrl); // => neighbourhood://Qm123456789abcdef
+console.log(neighbourhoodUrl); 
